@@ -1,0 +1,61 @@
+COMP.CS.110 Programming 2: Structures, 2022
+Project4: Snake GUI
+Author: Magnus Forsblom
+email: magnus.forsblom@tuni.fi
+
+Game rules:
+The rules for the snake game are simple. Your objective is to eat food. For every food piece you eat, the snake gets one unit of length bigger.
+You win the game if your snake gets as big as the playing field, and loose, if the snake hits itself, or a wall.
+The snake direction can be controlled by WASD keys.
+
+Program description:
+Snake GUI allows you to play the popular snake game in game GUI. When you open the game, you are greeted by the main menu.
+
+1. Play:
+Click play and a new game settings menu opens up. From the menu, you can customize different game parameters. Firstly, you can
+choose the gameboard width and height (between 1-99). This is the size of the walls that surround the snake in the game. You can also
+change the snake movement speed in milliseconds. For example a value of 300 means, that the snake moves 1 step in the desired direction
+every 300 milliseconds. To make the game harder, lower this setting. Lastly you can change the game seed. The game seed changes how the
+snake and food is spawned at the start of the game. If you use the same seed, the snake and food will always spawn at the same location.
+Once you have customized the game settings to your liking, click the Start! button to start the game:
+
+2: Quit
+Quits the game.
+
+In the game (after Start! has been clicked):
+The snake moves according to WASD keys. When the game starts, the default direction is up (w key). The game menu displays the snake size in
+the upper left corner, and elapsed game time in seconds, in the top right corner. If you wish to take a break, you can click the pause button
+at the bottom right corner to pause the game. After this, a label appears to inform about the pause state. Once you wish to resume, just click
+the same button, now labeled resume, and the pause label also dissappears. If you die/win, or otherwise wish to start over, click the Reset
+button in the bottom right corner to start over.
+
+When the snake dies (you loose), the game turns red and a label appears to notify that you lost the game. You also get a score, that is based
+on the following formula: snake lenght / gameboard size (width * height). So for example, if the gameboard width is 5 and the height is also 5,
+the gameboard size will be 5*5=25. For this example, if you die when the snake size is 5, your score will be 5 / 25.
+
+
+Extra features list:
+The user interface provides a possibility to adjust the size of the game grid. (10 p.)
+The program tells the length of the snake such that this data is always up-to-date. (5 p.)
+The game has a timer telling the time spent so far. (5 p.)
+The player can collect points based on their skills.  (10 p.)
+The background color of the user interface changes, when the player wins or loses the game (it e.g. becomes green due to a win, and red due to a loss). Resetting the game sets the original color. (10 p.)
+The game has a pause button, from which the user can pause the timer. This is possible only when the game is on. Pause has e.g. the effect that the game does not response to key commands any more. The game informs about the pause for the user. (10 p.)
+The program has a separate window where you can define options (such as a seed value, the size of the gameboard, speed of the game etc.) (15 p.) (not a separate window, but a frame.. i think it still deserves some points)
+The player can choose the speed of the snake. (5 p.)
+
+Impelemntation:
+UI:
+MainWindow for the menu:
+Allows user to play and customize game settings, or to quit the game.
+
+GameWindow for the snake game itself.
+QGraphicsScene is used to draw the snake, food and walls to the game. The scene is updated for every timer tick (time update interval is set by user in the main menu).
+Movement is detected by Qt:s keyPressEvent handler, and changed in the game when thetimer updates.
+A separate timer is implemented for the counting of the time spent in game. This timer updates once every second.
+
+Game logic:
+The base game logic is stored in the GameBoard and Point classes. The GameBoard class controlls all the snake logic, and the Point class stores snake coordinates.
+Some modifications had to be made to the GameBoard template, in order to make the UI work. These changes are documented inside the header files.
+The UI is divided into a main menu class MainWindow, that controls the game menu. The GameBoard is displayed in the GameWindow UI element (where the main game takes place).
+
